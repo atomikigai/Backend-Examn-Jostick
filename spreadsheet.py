@@ -47,6 +47,10 @@ def find_calc(value, iterator):
     columns = ["A", "B", "C", "D", "F", "G", "H", "I", "J", "K", "L", "M", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
     if value == None or len(value) <= 0:
         raise ValueError
+
+    if value[0] != "=":
+        raise ValueError
+    
     
     if value[0] == "=":
         iterable = value[2:]
@@ -92,6 +96,7 @@ def find_calc(value, iterator):
     column_index2 = find_column_index(val2)
     new_iter = iterator
 
+
     if column_index >= 0 :
         row_index = find_row_index(val1)
 
@@ -104,15 +109,15 @@ def find_calc(value, iterator):
                 if new_iter[j][l] == new_iter[row_index][column_index]:
                         if val2 != "" and val2[0] in columns:
                             ""
+                            break
                         else:
                             result = get_result(op, new_iter[row_index][column_index], val2)
                             if len(val1) <= 3 and val2 == "":
                                 result = new_iter[row_index][column_index]
-
-                            break
+                                break
     
     else:
-        result = get_result(op, value1, value2)
+        result = get_result(op, val1, val2)
 
 
     if column_index2 >= 0:
@@ -131,8 +136,15 @@ def find_calc(value, iterator):
 
 def find_column_index(value):
     columns = ["A", "B", "C", "D", "F", "G", "H", "I", "J", "K", "L", "M", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+
+    new_value = ""
+    if value[:1] in "-/*+":
+        new_value = value[1:2]
+    else:
+        new_value = value[:1]
+
     try:
-        return columns.index(value[:1].upper())
+        return columns.index(new_value.upper())
     except:
         return -1
 
@@ -142,7 +154,6 @@ def find_row_index(value):
 
 def get_result(op, value1, value2):
     
-
     if isinstance(value1, int) or isinstance(value1, float):
         try:
             value1 = int(value1)
