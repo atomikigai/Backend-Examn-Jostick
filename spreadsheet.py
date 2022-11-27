@@ -197,26 +197,6 @@ def get_result(op, value1, value2):
         raise ValueError
             
 
-    """ if value1 != "" and value2 != "":
-        if isinstance(value2, int) <= 0 or isinstance(value2, float) <= 0  and op == "/":
-            raise ZeroDivisionError
-
-    
-    if value1 != "" and value2 != "" and op != "":
-        match op:
-            case "+": return value1 + value2
-            case "-": return value1 - value2
-            case "*": return value1 * value2
-            case "/": return value1 / value2
-    else:
-        if value2 == "" and value1 != "" and op == "":
-             return value1
-        else:
-            if value2 != "" and value1 == "" and op == "":
-                return value2
-            else:
-                raise ValueError """
-
 
 
 # =============================================================================
