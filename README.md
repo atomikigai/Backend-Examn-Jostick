@@ -6,6 +6,7 @@ inicialmente entregue hasta 18 resueltos por si desean saberlo y con el tiempo e
 4. mejora de codigo 
 5. eliminacion de codigo
 6. 21 correctas
+7. eliminacion de codigo extra
 
 # NORITEX - Prueba Back-end
 
