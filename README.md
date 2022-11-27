@@ -1,9 +1,9 @@
 #Commits 
 1. 18 correctas
 2. 19 correctas
-3. 20 correctas
 4. mejora de codigo 
 5. eliminacion de codigo
+6. 21 correctas
 
 # NORITEX - Prueba Back-end
 
