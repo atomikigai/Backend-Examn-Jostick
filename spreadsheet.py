@@ -40,7 +40,6 @@ def evaluate(m):
                 m[i][x] = int(m[i][x])
             except:
                 m[i][x] = find_calc(m[i][x], m)
-    print("RESULT: ", m)
     return m
 
 def find_calc(value, iterator):
@@ -145,15 +144,6 @@ def find_row_index(value):
     else:
         return int(value[1:]) - 1
 
-def check_value(origin, value):
-    if origin[0] in "+-*/":
-        temp = origin[0] + str(value)
-        print("TEMP: ", temp)
-        return temp
-    else:
-        print("VALUES: ", value)
-        value
-
 def get_result(op, value1, value2):
     
     if isinstance(value1, str):
@@ -197,19 +187,14 @@ def get_result(op, value1, value2):
         
         else:
             if isinstance(value1, int) or isinstance(value1, float) and isinstance(value2, str):
-                print("LINEA 201")
                 raise ValueError
             
             if isinstance(value2, str):
                 return value1
 
-            print("LINEA 207")
             raise ValueError
 
     else:
-        if isinstance(value1, str):
-                print("")
-
         raise ValueError
             
 
