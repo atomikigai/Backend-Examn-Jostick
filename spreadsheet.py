@@ -40,7 +40,6 @@ def evaluate(m):
                 m[i][x] = int(m[i][x])
             except:
                 m[i][x] = find_calc(m[i][x], m)
-    
     return m
 
 def find_calc(value, iterator):
@@ -96,48 +95,36 @@ def find_calc(value, iterator):
     column_index2 = find_column_index(val2)
     new_iter = iterator
 
-
     if column_index >= 0 :
         row_index = find_row_index(val1)
 
         if row_index > len(new_iter) or column_index > len(new_iter):
             raise ReferenceError
+        
+        if len(val1) < 3 and val2 == "":
+            if op != "" and val2 == "":
+                raise ValueError
 
-        for j in range(len(new_iter)):
-            for l in range(len(new_iter[j])):
+            result = new_iter[row_index][column_index]
+            return result
 
-                if new_iter[j][l] == new_iter[row_index][column_index]:
-                        if val2 != "" and val2[0] in columns:
-                            ""
-                            break
-                        else:
-                            result = get_result(op, new_iter[row_index][column_index], val2)
-                            if len(val1) <= 3 and val2 == "":
-                                result = new_iter[row_index][column_index]
-                                break
-    
+        if column_index2 >= 0:
+            row_index2 = find_row_index(val2)
+            return get_result(op, new_iter[row_index][column_index], new_iter[row_index2][column_index2])
+        else:
+            return get_result(op, new_iter[row_index][column_index], val2)
+
+        
     else:
         result = get_result(op, val1, val2)
 
-
-    if column_index2 >= 0:
-        row_index2 = find_row_index(val2)
-        if row_index2 > len(new_iter) or column_index2 > len(new_iter):
-            raise ReferenceError
-
-        for z in range(len(new_iter)):
-            for y in range(len(new_iter[z])):
-                if new_iter[z][y] == new_iter[row_index2][column_index2]:
-                    result = get_result(op, new_iter[row_index][column_index], new_iter[row_index2][column_index2])
-                    break
-    
     return result
 
 
 def find_column_index(value):
     columns = ["A", "B", "C", "D", "F", "G", "H", "I", "J", "K", "L", "M", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
-
     new_value = ""
+
     if value[:1] in "-/*+":
         new_value = value[1:2]
     else:
@@ -154,29 +141,63 @@ def find_row_index(value):
 
 def get_result(op, value1, value2):
     
-    if isinstance(value1, int) or isinstance(value1, float):
-        try:
-            value1 = int(value1)
-        except:
-            value1 = float(value1)
-    else:
+    if isinstance(value1, str):
+        if value1.isdigit():
             try:
                 value1 = int(value1)
             except:
                 value1 = float(value1)
+        else:
+            if value1[0] == "-":
+                try:
+                    value1 = int(value1)
+                except:
+                    value1 = float(value1)
 
-    if isinstance(value2, int) or isinstance(value2, float):
-        try:
-            value2 = int(value2)
-        except:
-            value2 = float(value2)
-    else:
+    if isinstance(value2, str):
+        if value2.isdigit():
             try:
-                 value2 = int(value2)
+                value2 = int(value2)
             except:
-                 value2 = float(value2)
+                value2 = float(value2)
+        else:
+            if value2[0] == "-":
+                try:
+                    value2 = int(value2)
+                except:
+                    value2 = float(value2)
 
-    if value1 != "" and value2 != "":
+
+
+    if isinstance(value1, int) or isinstance(value1, float):
+        if isinstance(value2, int) or isinstance(value2, float):
+            
+            if value1 == 0 and value2 == 0:
+                raise ZeroDivisionError
+
+            match op:
+                case "+": return value1 + value2
+                case "-": return value1 - value2
+                case "*": return value1 * value2
+                case "/": return value1 / value2
+        
+        else:
+            if isinstance(value1, int) or isinstance(value1, float) and isinstance(value2, str):
+                raise ValueError
+            
+            if isinstance(value2, str):
+                return value1
+
+            raise ValueError
+
+    else:
+        if isinstance(value1, str):
+                print("")
+
+        raise ValueError
+            
+
+    """ if value1 != "" and value2 != "":
         if isinstance(value2, int) <= 0 or isinstance(value2, float) <= 0  and op == "/":
             raise ZeroDivisionError
 
@@ -194,7 +215,7 @@ def get_result(op, value1, value2):
             if value2 != "" and value1 == "" and op == "":
                 return value2
             else:
-                raise ValueError
+                raise ValueError """
 
 
 
