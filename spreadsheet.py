@@ -40,10 +40,10 @@ def evaluate(m):
                 m[i][x] = int(m[i][x])
             except:
                 m[i][x] = find_calc(m[i][x], m)
+    print("RESULT: ", m)
     return m
 
 def find_calc(value, iterator):
-    columns = ["A", "B", "C", "D", "F", "G", "H", "I", "J", "K", "L", "M", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
     if value == None or len(value) <= 0:
         raise ValueError
 
@@ -71,7 +71,6 @@ def find_calc(value, iterator):
                 op = "/"
                 break
 
-
     value_format = value[1:]    
     value1 = ""
     value2 = ""
@@ -84,6 +83,7 @@ def find_calc(value, iterator):
     if value1 == None or value1 == "":
         raise ValueError    
 
+
     column_index = ""
     column_index2 = ""
     row_index = 0
@@ -94,6 +94,7 @@ def find_calc(value, iterator):
     column_index = find_column_index(val1)
     column_index2 = find_column_index(val2)
     new_iter = iterator
+
 
     if column_index >= 0 :
         row_index = find_row_index(val1)
@@ -116,6 +117,9 @@ def find_calc(value, iterator):
 
         
     else:
+        if column_index2 >= 0:
+            return get_result(op, val1, new_iter[row_index2][column_index2])
+
         result = get_result(op, val1, val2)
 
     return result
@@ -136,8 +140,19 @@ def find_column_index(value):
         return -1
 
 def find_row_index(value):
-    return int(value[1:]) - 1
+    if value[0] in "-/*+":
+        return int(value[2:]) - 1
+    else:
+        return int(value[1:]) - 1
 
+def check_value(origin, value):
+    if origin[0] in "+-*/":
+        temp = origin[0] + str(value)
+        print("TEMP: ", temp)
+        return temp
+    else:
+        print("VALUES: ", value)
+        value
 
 def get_result(op, value1, value2):
     
@@ -148,7 +163,7 @@ def get_result(op, value1, value2):
             except:
                 value1 = float(value1)
         else:
-            if value1[0] == "-":
+            if value1[0] in "+-*/":
                 try:
                     value1 = int(value1)
                 except:
@@ -161,12 +176,11 @@ def get_result(op, value1, value2):
             except:
                 value2 = float(value2)
         else:
-            if value2[0] == "-":
+            if value2[0] in "+-*/":
                 try:
                     value2 = int(value2)
                 except:
                     value2 = float(value2)
-
 
 
     if isinstance(value1, int) or isinstance(value1, float):
@@ -183,11 +197,13 @@ def get_result(op, value1, value2):
         
         else:
             if isinstance(value1, int) or isinstance(value1, float) and isinstance(value2, str):
+                print("LINEA 201")
                 raise ValueError
             
             if isinstance(value2, str):
                 return value1
 
+            print("LINEA 207")
             raise ValueError
 
     else:
