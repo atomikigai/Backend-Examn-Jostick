@@ -1,4 +1,6 @@
-#Commits 
+## Commits 
+solo una explicacion de los commits que he realizado mejoras en el codigo y resolucion de mas problemas. 
+inicialmente entregue hasta 18 resueltos por si desean saberlo y con el tiempo entonces llegue a las 21 porblemas correctos.
 1. 18 correctas
 2. 19 correctas
 4. mejora de codigo 
